@@ -1,0 +1,19 @@
+
+PS1=''                           # begin with a newline
+#PS1=$PS1'\[\e[38;5;101m\]\! \t '   # time and command history number
+#PS1=$PS1'\[\e[38;5;106m\]\u@\h '   # user@host
+PS1=$PS1'\[\e[7;35m\]${MY_WARN}\[\e[0m\]' # warning message if there is any
+PS1=$PS1'\[\e[38;5;10m\]${MY_EXTRA}'      # extra info if there is any
+PS1=$PS1'\[\e[38;5;33m\]\W'        # working directory
+PS1=$PS1'\[\e[0;31m\]$(git_branch_4_ps1)' # git_branch_4_ps1 defined below
+#PS1=$PS1'\[\e[0m\]\$ '          # "$"/"#" sign on a new line
+PS1=$PS1'\[\e[0m\] '          # "$"/"#" sign on a new line
+PS1=$PS1'\[\e[0m\]'                # restore to default color
+
+function git_branch_4_ps1 {     # get git branch of pwd
+    local branch="$(git branch 2>/dev/null | grep "\*" | colrm 1 2)"
+    if [ -n "$branch" ]; then
+        echo " $branch"
+    fi
+}
+
